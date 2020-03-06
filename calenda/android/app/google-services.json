@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "706108333199",
+    "firebase_url": "https://calenda-8e7de.firebaseio.com",
+    "project_id": "calenda-8e7de",
+    "storage_bucket": "calenda-8e7de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706108333199:android:716e2e914ce2c950bda4fa",
+        "android_client_info": {
+          "package_name": "gg.norment.calenda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706108333199-875gkirt1mvgt2hiehodoio7mkvb8ma0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9uYjlOD0thygtfSgQdBgR5U-L4Aa-PG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "706108333199-875gkirt1mvgt2hiehodoio7mkvb8ma0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
