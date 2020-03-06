@@ -9,22 +9,25 @@ class CalendaHome extends StatefulWidget {
 }
 
 class _CalendaHomeState extends State<CalendaHome> {
-  @override
 
-  String _title = "";
   int _currentIndex = 0;
+
   final List<Widget> _children = [
     CalendarScreen(),
     ToDoScreen(),
     AgendaScreen(),
   ];
-
+  final List<String> _titles = [
+    "Calendar",
+    "To-do",
+    "Agenda",
+  ];
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-            child: Text(_title),
+            child: Text(_titles[_currentIndex]),
         ),
         backgroundColor: Colors.blueAccent,
       ),
