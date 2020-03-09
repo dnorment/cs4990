@@ -194,6 +194,11 @@ class _LoginPageState extends State<LoginPage> {
                                   "Specified email address is already in use by another account.";
                             });
                           }
+                          else if (err.toString().contains("ERROR_WEAK_PASSWORD")) {
+                            setState(() {
+                              _msgToUser = "Given password is too weak (minimum 6 characters).";
+                            });
+                          }
                           print(err.toString());
                         });
                       },
