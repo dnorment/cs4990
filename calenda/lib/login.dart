@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:calenda/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-void main() => runApp(Calenda());
+void main() => runApp(CalendaApp());
 
-class Calenda extends StatelessWidget {
+class CalendaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Calenda',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -156,7 +157,10 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CalendaHome()));
+                                  builder: (context) => Calenda(
+                                    user: value.user,
+                                    child: CalendaHome(),
+                                  )));
                         }).catchError((err) {
                           if (err.toString().contains("ERROR_WRONG_PASSWORD") ||
                               err.toString().contains("ERROR_USER_NOT_FOUND")) {
@@ -184,7 +188,10 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CalendaHome()));
+                                  builder: (context) => Calenda(
+                                        user: value.user,
+                                        child: CalendaHome(),
+                                      )));
                         }).catchError((err) {
                           if (err
                               .toString()
@@ -193,10 +200,12 @@ class _LoginPageState extends State<LoginPage> {
                               _msgToUser =
                                   "Specified email address is already in use by another account.";
                             });
-                          }
-                          else if (err.toString().contains("ERROR_WEAK_PASSWORD")) {
+                          } else if (err
+                              .toString()
+                              .contains("ERROR_WEAK_PASSWORD")) {
                             setState(() {
-                              _msgToUser = "Given password is too weak (minimum 6 characters).";
+                              _msgToUser =
+                                  "Given password is too weak (minimum 6 characters).";
                             });
                           }
                           print(err.toString());
