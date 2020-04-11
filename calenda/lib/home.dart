@@ -1,24 +1,10 @@
+import 'package:calenda/components/calenda.dart';
 import 'package:calenda/screens/agenda.dart';
 import 'package:calenda/screens/calendar.dart';
 import 'package:calenda/screens/todo.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Calenda extends InheritedWidget {
-  const Calenda({
-    Key key,
-    @required this.user,
-    @required Widget child,
-  }) : super(key: key, child: child);
-
-  final FirebaseUser user;
-
-  static Calenda of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<Calenda>();
-
-  @override
-  bool updateShouldNotify(InheritedWidget oldWidget) => true;
-}
+import 'components/item.dart';
 
 class CalendaHome extends StatefulWidget {
   @override

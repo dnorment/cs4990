@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:calenda/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'components/calenda.dart';
+
 void main() => runApp(CalendaApp());
 
 class CalendaApp extends StatelessWidget {

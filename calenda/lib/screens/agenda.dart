@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:calenda/home.dart';
 
-class AgendaScreen extends StatelessWidget {
+class AgendaScreen extends StatefulWidget {
+  @override
+  _AgendaScreenState createState() => _AgendaScreenState();
+}
+
+class _AgendaScreenState extends State<AgendaScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
