@@ -1,5 +1,7 @@
 import 'package:calenda/components/calenda.dart';
+import 'package:calenda/components/group.dart';
 import 'package:calenda/components/item.dart';
+import 'package:calenda/components/itemtile.dart';
 import 'package:flutter/material.dart';
 
 class ToDoScreen extends StatefulWidget {
@@ -16,6 +18,12 @@ class _ToDoScreenState extends State<ToDoScreen> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){
+          setState(() {
+            Group g = Group(name: "CS4990");
+            Item i = Item(title: "APP");
+            i.group = g;
+            items.add(i);
+          });
         },
       ),
       body: Card(
@@ -24,7 +32,7 @@ class _ToDoScreenState extends State<ToDoScreen> {
             padding: const EdgeInsets.all(8),
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
-              return items[index].toTile();
+              return ItemTile(item: items[index]);
             },
             separatorBuilder: (BuildContext context, int index) =>
                 const Divider(height: 5),

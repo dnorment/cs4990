@@ -1,13 +1,8 @@
-import 'package:flutter/material.dart';
+import 'group.dart';
 
 class Item {
   Item({this.title});
 
   String title;
-
-  ListTile toTile() {
-    return ListTile(
-      title: Text(title),
-    );
-  }
+  Group group;
 }
