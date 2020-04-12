@@ -14,10 +14,6 @@ class CalendaApp extends StatelessWidget {
       title: 'Calenda',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        inputDecorationTheme: InputDecorationTheme(
-          labelStyle: TextStyle(color: Colors.white),
-          fillColor: Colors.white,
-        ),
       ),
       home: LoginPage(),
     );
@@ -99,7 +95,6 @@ class _LoginPageState extends State<LoginPage> {
                                       flex: 1,
                                       child: TextField(
                                         controller: _emailEditingController,
-                                        obscureText: false,
                                         style: TextStyle(color: Colors.white),
                                         decoration: InputDecoration(
                                           border: UnderlineInputBorder(),
