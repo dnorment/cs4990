@@ -1,6 +1,9 @@
 import 'package:calenda/components/group.dart';
 import 'package:calenda/components/item.dart';
+import 'package:calenda/components/systempadding.dart';
 import 'package:flutter/material.dart';
+
+import 'calenda.dart';
 
 class ItemForm extends StatefulWidget {
   @override
@@ -9,7 +12,7 @@ class ItemForm extends StatefulWidget {
 
 class _ItemFormState extends State<ItemForm> {
   TextEditingController _titleEditingController = TextEditingController();
-  TextEditingController _groupEditingController = TextEditingController();
+  Group selectedGroup = Group.NONE;
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +22,9 @@ class _ItemFormState extends State<ItemForm> {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Expanded(
-                flex: 1,
+              SystemPadding(
                 child: TextField(
+                  autofocus: true,
                   controller: _titleEditingController,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
@@ -30,17 +33,28 @@ class _ItemFormState extends State<ItemForm> {
                   ),
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: TextField(
-                  controller: _groupEditingController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Group',
+              DropdownButton<Group>(
+                  value: selectedGroup,
+                  icon: Icon(Icons.arrow_drop_down),
+                  underline: Container(
+                    height: 1,
+                    color: Colors.black,
                   ),
+                  onChanged: (Group newGroup) {
+                    setState(() {
+                      selectedGroup = newGroup;
+                    });
+                  },
+                  items: Calenda.of(context)
+                      .groups
+                      .map<DropdownMenuItem<Group>>((Group group) {
+                    return DropdownMenuItem<Group>(
+                      value: group,
+                      child: Text(group.name),
+                    );
+                  })
+                  .toList(),
                 ),
-              ),
             ]),
       ),
       actions: <Widget>[
@@ -48,8 +62,8 @@ class _ItemFormState extends State<ItemForm> {
           child: Text("Add"),
           onPressed: () {
             Item item = Item(
-                title: _titleEditingController.text,
-                group: Group(name: _groupEditingController.text),
+              title: _titleEditingController.text,
+              group: selectedGroup,
             );
             Navigator.pop(context, item);
           },

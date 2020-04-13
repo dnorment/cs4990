@@ -5,5 +5,6 @@ class Group {
     @required this.name,
   });
 
-  String name;
+  static final Group NONE = Group(name: "None");
+  final String name;
 }

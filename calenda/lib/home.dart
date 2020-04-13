@@ -1,10 +1,7 @@
-import 'package:calenda/components/calenda.dart';
 import 'package:calenda/screens/agenda.dart';
 import 'package:calenda/screens/calendar.dart';
 import 'package:calenda/screens/todo.dart';
 import 'package:flutter/material.dart';
-
-import 'components/item.dart';
 
 class CalendaHome extends StatefulWidget {
   @override

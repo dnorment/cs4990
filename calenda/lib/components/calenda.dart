@@ -6,17 +6,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Calenda extends InheritedWidget {
   Calenda({
     Key key,
-    @required this.user,
     @required Widget child,
   }) : super(key: key, child: child);
 
-  final FirebaseUser user;
+  FirebaseUser user;
   List<Item> items = [];
   List<Group> groups = [];
 
-  void addItem(Item item) => items.add(item);
-
-  void removeItem(Item item) => items.remove(item);
+  Group getGroupOrAddNew(String name) {
+    return groups.firstWhere(
+      (group) => name == group.name,
+      orElse:() {
+        Group newGroup = Group(name: name);
+        groups.add(newGroup);
+        return newGroup;
+      }
+    );
+  }
 
   static Calenda of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<Calenda>();

@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'components/calenda.dart';
 
-void main() => runApp(CalendaApp());
+void main() => runApp(Calenda(child: CalendaApp()));
 
 class CalendaApp extends StatelessWidget {
   @override
@@ -151,13 +151,12 @@ class _LoginPageState extends State<LoginPage> {
                         );
 
                         res.then((value) {
+                          Calenda.of(context).user = value.user;
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Calenda(
-                                    user: value.user,
-                                    child: CalendaHome(),
-                                  )));
+                                  builder: (context) => CalendaHome()
+                              ));
                         }).catchError((err) {
                           if (err.toString().contains("ERROR_WRONG_PASSWORD") ||
                               err.toString().contains("ERROR_USER_NOT_FOUND")) {

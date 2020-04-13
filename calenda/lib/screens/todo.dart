@@ -1,5 +1,4 @@
 import 'package:calenda/components/calenda.dart';
-import 'package:calenda/components/group.dart';
 import 'package:calenda/components/item.dart';
 import 'package:calenda/components/itemform.dart';
 import 'package:calenda/components/itemtile.dart';
@@ -21,9 +20,7 @@ class _ToDoScreenState extends State<ToDoScreen> {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (BuildContext context) {
-              return ItemForm();
-            },
+            child: ItemForm(),
             barrierDismissible: true,
           ).then((item) {
             if (item != null) {
