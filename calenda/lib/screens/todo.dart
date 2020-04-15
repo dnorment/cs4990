@@ -18,11 +18,11 @@ class _ToDoScreenState extends State<ToDoScreen> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          showDialog(
+          showDialog<Item>(
             context: context,
             child: ItemForm(),
             barrierDismissible: true,
-          ).then((item) {
+          ).then((Item item) {
             if (item != null) {
               setState(() {
                 items.add(item);

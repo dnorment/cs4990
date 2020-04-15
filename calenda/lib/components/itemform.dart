@@ -1,6 +1,5 @@
 import 'package:calenda/components/group.dart';
 import 'package:calenda/components/item.dart';
-import 'package:calenda/components/systempadding.dart';
 import 'package:flutter/material.dart';
 
 import 'calenda.dart';
@@ -12,7 +11,9 @@ class ItemForm extends StatefulWidget {
 
 class _ItemFormState extends State<ItemForm> {
   TextEditingController _titleEditingController = TextEditingController();
-  Group selectedGroup = Group.NONE;
+  TextEditingController _dateTextEditingController = TextEditingController();
+  DateTime _selectedDate;
+  Group _selectedGroup = Group.NONE;
 
   @override
   Widget build(BuildContext context) {
@@ -20,41 +21,102 @@ class _ItemFormState extends State<ItemForm> {
       title: Text("New Item"),
       content: Form(
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SystemPadding(
-                child: TextField(
-                  autofocus: true,
-                  controller: _titleEditingController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Title',
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: Text("Title: "),
                   ),
-                ),
+                  Expanded(
+                    flex: 5,
+                    child: TextField(
+                      controller: _titleEditingController,
+                    ),
+                  )
+                ],
               ),
-              DropdownButton<Group>(
-                  value: selectedGroup,
-                  icon: Icon(Icons.arrow_drop_down),
-                  underline: Container(
-                    height: 1,
-                    color: Colors.black,
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: Text("Date: "),
                   ),
-                  onChanged: (Group newGroup) {
-                    setState(() {
-                      selectedGroup = newGroup;
-                    });
-                  },
-                  items: Calenda.of(context)
-                      .groups
-                      .map<DropdownMenuItem<Group>>((Group group) {
-                    return DropdownMenuItem<Group>(
-                      value: group,
-                      child: Text(group.name),
-                    );
-                  })
-                  .toList(),
-                ),
+                  Expanded(
+                    flex: 3,
+                    child: TextField(
+                      controller: _dateTextEditingController,
+                      enabled: false,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: FlatButton(
+                      child: Text("Pick Date"),
+                      onPressed: () {
+                        showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate:
+                              DateTime.now().subtract(Duration(days: 365)),
+                          lastDate: DateTime.now().add(Duration(days: 3650)),
+                        ).then((DateTime date) {
+                          if (date != null) {
+                            _selectedDate = date;
+                            setState(() {
+                              _dateTextEditingController.text =
+                                  date.toString().substring(0, 10);
+                            });
+                          }
+                        });
+                        ;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: Text("Group: "),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: DropdownButton<Group>(
+                      value: _selectedGroup,
+                      icon: Icon(Icons.arrow_drop_down),
+                      underline: Container(
+                        height: 1,
+                        color: Colors.black,
+                      ),
+                      onChanged: (Group newGroup) {
+                        setState(() {
+                          _selectedGroup = newGroup;
+                        });
+                      },
+                      items: Calenda.of(context)
+                          .groups
+                          .map<DropdownMenuItem<Group>>((Group group) {
+                        return DropdownMenuItem<Group>(
+                          value: group,
+                          child: Text(group.name),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: FlatButton(
+                      child: Text("New Group"), //TODO
+                      onPressed: () {
+                        Calenda.of(context).syncUpload();
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ]),
       ),
       actions: <Widget>[
@@ -63,7 +125,8 @@ class _ItemFormState extends State<ItemForm> {
           onPressed: () {
             Item item = Item(
               title: _titleEditingController.text,
-              group: selectedGroup,
+              dueDate: _selectedDate,
+              group: _selectedGroup,
             );
             Navigator.pop(context, item);
           },

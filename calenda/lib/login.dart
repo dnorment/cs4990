@@ -181,13 +181,12 @@ class _LoginPageState extends State<LoginPage> {
                         );
 
                         res.then((value) {
+                          Calenda.of(context).user = value.user;
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Calenda(
-                                        user: value.user,
-                                        child: CalendaHome(),
-                                      )));
+                                  builder: (context) => CalendaHome()
+                              ));
                         }).catchError((err) {
                           if (err
                               .toString()

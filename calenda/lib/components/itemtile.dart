@@ -22,6 +22,10 @@ class ItemTile extends ListTile {
       ),
       title: Text(item.title),
       subtitle: item.group == Group.NONE ? null : Text(item.group.name),
+      trailing: item.dueDate != null ?
+      Text("${item.dueDate.month}/${item.dueDate.day}",
+        textAlign: TextAlign.right,
+      ) : Text(""),
     );
   }
 }
