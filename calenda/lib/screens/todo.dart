@@ -27,6 +27,7 @@ class _ToDoScreenState extends State<ToDoScreen> {
               setState(() {
                 items.add(item);
               });
+              Calenda.of(context).syncUpload();
             }
           });
         },
@@ -42,6 +43,7 @@ class _ToDoScreenState extends State<ToDoScreen> {
                 setState(() {
                   items.removeAt(index);
                 });
+                Calenda.of(context).syncUpload();
               },
             );
           },

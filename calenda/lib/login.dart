@@ -1,24 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:calenda/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 import 'components/calenda.dart';
-
-void main() => runApp(Calenda(child: CalendaApp()));
-
-class CalendaApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Calenda',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: LoginPage(),
-    );
-  }
-}
+import 'home.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -145,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text("Log in"),
                       onPressed: () {
                         Future<AuthResult> res =
-                            _auth.signInWithEmailAndPassword(
+                        _auth.signInWithEmailAndPassword(
                           email: _emailEditingController.text.toString(),
                           password: _passwordEditingController.text.toString(),
                         );
@@ -175,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text("Sign up"),
                       onPressed: () {
                         Future<AuthResult> res =
-                            _auth.createUserWithEmailAndPassword(
+                        _auth.createUserWithEmailAndPassword(
                           email: _emailEditingController.text.toString(),
                           password: _passwordEditingController.text.toString(),
                         );
@@ -193,14 +177,14 @@ class _LoginPageState extends State<LoginPage> {
                               .contains("ERROR_EMAIL_ALREADY_IN_USE")) {
                             setState(() {
                               _msgToUser =
-                                  "Specified email address is already in use by another account.";
+                              "Specified email address is already in use by another account.";
                             });
                           } else if (err
                               .toString()
                               .contains("ERROR_WEAK_PASSWORD")) {
                             setState(() {
                               _msgToUser =
-                                  "Given password is too weak (minimum 6 characters).";
+                              "Given password is too weak (minimum 6 characters).";
                             });
                           }
                           print(err.toString());

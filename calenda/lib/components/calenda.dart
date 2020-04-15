@@ -1,5 +1,6 @@
 import 'package:calenda/components/group.dart';
 import 'package:calenda/components/item.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -24,6 +25,28 @@ class Calenda extends InheritedWidget {
     );
   }
 
+  void syncUpload() {
+    DatabaseReference ref = FirebaseDatabase.instance.reference();
+    ref = ref.child("users/${user.uid}");
+    Map<String, dynamic> json = {
+      "items" : items.map((Item item) {
+        return {
+          "title" : item.title,
+          "group" : item.group.name,
+          "dueDate" : item.dueDate.toString(),
+        };
+      }).toList(),
+      "groups" : groups.map((Group group) {
+        return {
+          "name" : group.name,
+        };
+      }).toList(),
+    };
+
+    ref.set(json).catchError((err) {
+      print(err);
+    });
+  }
   static Calenda of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<Calenda>();
 
