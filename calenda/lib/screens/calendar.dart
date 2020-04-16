@@ -47,21 +47,22 @@ class _CalendarScreenState extends State<CalendarScreen> {
               });
             },
           ),
-
-          ListView.separated(
-            shrinkWrap: true,
-            padding: EdgeInsets.all(4),
-            itemCount: _selectedEvents.length,
-            itemBuilder: (BuildContext context, int index) {
-              Item item = _selectedEvents[index];
-              return ListTile(
-                title: Text(item.title),
-                subtitle: item.group == "None" ? null : Text(item.group),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) => const Divider(
-              height: 8,
-              color: Colors.blueGrey,
+          Expanded(
+            child: ListView.separated(
+              shrinkWrap: true,
+              padding: EdgeInsets.all(4),
+              itemCount: _selectedEvents.length,
+              itemBuilder: (BuildContext context, int index) {
+                Item item = _selectedEvents[index];
+                return ListTile(
+                  title: Text(item.title),
+                  subtitle: item.group == "None" ? null : Text(item.group),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) => const Divider(
+                height: 8,
+                color: Colors.blueGrey,
+              ),
             ),
           ),
 
