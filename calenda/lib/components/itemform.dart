@@ -1,4 +1,3 @@
-import 'package:calenda/components/group.dart';
 import 'package:calenda/components/item.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +12,7 @@ class _ItemFormState extends State<ItemForm> {
   TextEditingController _titleEditingController = TextEditingController();
   TextEditingController _dateTextEditingController = TextEditingController();
   DateTime _selectedDate;
-  Group _selectedGroup = Group.NONE;
+  String _selectedGroup = "None";
 
   @override
   Widget build(BuildContext context) {
@@ -84,24 +83,24 @@ class _ItemFormState extends State<ItemForm> {
                   ),
                   Expanded(
                     flex: 3,
-                    child: DropdownButton<Group>(
+                    child: DropdownButton<String>(
                       value: _selectedGroup,
                       icon: Icon(Icons.arrow_drop_down),
                       underline: Container(
                         height: 1,
                         color: Colors.black,
                       ),
-                      onChanged: (Group newGroup) {
+                      onChanged: (newGroup) {
                         setState(() {
                           _selectedGroup = newGroup;
                         });
                       },
                       items: Calenda.of(context)
                           .groups
-                          .map<DropdownMenuItem<Group>>((Group group) {
-                        return DropdownMenuItem<Group>(
+                          .map<DropdownMenuItem<String>>((group) {
+                        return DropdownMenuItem<String>(
                           value: group,
-                          child: Text(group.name),
+                          child: Text(group),
                         );
                       }).toList(),
                     ),
@@ -111,7 +110,7 @@ class _ItemFormState extends State<ItemForm> {
                     child: FlatButton(
                       child: Text("New Group"), //TODO
                       onPressed: () {
-                        Calenda.of(context).syncUpload();
+
                       },
                     ),
                   ),

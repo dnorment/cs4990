@@ -1,8 +1,6 @@
 import 'package:calenda/components/item.dart';
 import 'package:flutter/material.dart';
 
-import 'group.dart';
-
 class ItemTile extends ListTile {
   ItemTile({
     Key key,
@@ -21,7 +19,7 @@ class ItemTile extends ListTile {
         onPressed: onTileButtonPressed,
       ),
       title: Text(item.title),
-      subtitle: item.group == Group.NONE ? null : Text(item.group.name),
+      subtitle: item.group == "None" ? null : Text(item.group),
       trailing: item.dueDate != null ?
       Text("${item.dueDate.month}/${item.dueDate.day}",
         textAlign: TextAlign.right,
