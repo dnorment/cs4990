@@ -13,7 +13,7 @@ class Calenda extends InheritedWidget {
 
   FirebaseUser user;
   List<Item> items = [];
-  List<String> groups = ["None", "CS101", "CS4990"];
+  List<String> groups = ["None"];
 
   void syncUpload() {
     DatabaseReference ref = FirebaseDatabase.instance.reference();
