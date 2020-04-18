@@ -33,6 +33,7 @@ class _GroupFormState extends State<GroupForm> {
                           setState(() {
                             Calenda.of(context).groups.remove(group);
                           });
+                          Calenda.of(context).syncUpload();
                         },
                       ),
                     );
@@ -58,6 +59,7 @@ class _GroupFormState extends State<GroupForm> {
                         setState(() {
                           Calenda.of(context).groups.add(_groupNameEditingController.text);
                         });
+                        Calenda.of(context).syncUpload();
                       },
                     ),
                   ),

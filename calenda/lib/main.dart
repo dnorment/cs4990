@@ -1,3 +1,5 @@
+import 'package:calenda/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'components/calenda.dart';
@@ -14,7 +16,16 @@ class CalendaApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: FutureBuilder<FirebaseUser>(
+        future: FirebaseAuth.instance.currentUser(),
+        builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot){
+            if (snapshot.hasData){
+                Calenda.of(context).user = snapshot.data;
+                return CalendaHome();
+            }
+              return LoginPage();
+          }
+      ),
     );
   }
 }
