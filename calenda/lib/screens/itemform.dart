@@ -1,7 +1,8 @@
+import 'package:calenda/components/calenda.dart';
 import 'package:calenda/components/item.dart';
 import 'package:flutter/material.dart';
 
-import 'calenda.dart';
+import 'groupform.dart';
 
 class ItemForm extends StatefulWidget {
   @override
@@ -69,7 +70,6 @@ class _ItemFormState extends State<ItemForm> {
                             });
                           }
                         });
-                        ;
                       },
                     ),
                   ),
@@ -108,9 +108,14 @@ class _ItemFormState extends State<ItemForm> {
                   Expanded(
                     flex: 2,
                     child: FlatButton(
-                      child: Text("New Group"), //TODO
+                      child: Text("Manage Groups"),
                       onPressed: () {
-
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => GroupForm(),
+                          barrierDismissible: true,
+                        );
+                        Calenda.of(context).syncUpload();
                       },
                     ),
                   ),

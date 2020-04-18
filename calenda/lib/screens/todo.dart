@@ -1,8 +1,9 @@
 import 'package:calenda/components/calenda.dart';
 import 'package:calenda/components/item.dart';
-import 'package:calenda/components/itemform.dart';
 import 'package:calenda/components/itemtile.dart';
 import 'package:flutter/material.dart';
+
+import 'itemform.dart';
 
 class ToDoScreen extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _ToDoScreenState extends State<ToDoScreen> {
         onPressed: () {
           showDialog<Item>(
             context: context,
-            child: ItemForm(),
+            builder: (BuildContext context) => ItemForm(),
             barrierDismissible: true,
           ).then((Item item) {
             if (item != null) {
