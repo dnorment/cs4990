@@ -19,12 +19,14 @@ class CalendaApp extends StatelessWidget {
       home: FutureBuilder<FirebaseUser>(
         future: FirebaseAuth.instance.currentUser(),
         builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot){
-            if (snapshot.hasData){
-                Calenda.of(context).user = snapshot.data;
-                return CalendaHome();
-            }
-              return LoginPage();
+          if (snapshot.hasData){
+              Calenda.of(context)
+                ..user = snapshot.data
+                ..syncDownload();
+              return CalendaHome();
           }
+            return LoginPage();
+        }
       ),
     );
   }

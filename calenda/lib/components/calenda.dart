@@ -20,11 +20,43 @@ class Calenda extends InheritedWidget {
     ref = ref.child("users/${user.uid}");
 
     Map<String, dynamic> json = {
-      "groups" : jsonEncode(groups),
-      "items" : jsonEncode(items),
+      "groups" : groups,
+      "items" : items.map((Item item) {
+          return item.toJson();
+        }).toList(),
     };
 
     ref.set(json).catchError((err) {
+      print(err);
+    });
+  }
+
+  void syncDownload() {
+    DatabaseReference ref = FirebaseDatabase.instance.reference();
+    ref = ref.child("users/${user.uid}");
+
+    DatabaseReference groupsRef = ref.child("/groups");
+    DatabaseReference itemsRef = ref.child("/items");
+
+    groupsRef.once().then((DataSnapshot ds) {
+      groups = ["None"];
+
+      var val = jsonDecode(jsonEncode(ds.value));
+      val.forEach((group) {
+        if (!groups.contains(group)) groups.add(group);
+      });
+    }).catchError((err) {
+      print(err);
+    });
+
+    itemsRef.once().then((DataSnapshot ds) {
+      items = [];
+
+      var val = jsonDecode(jsonEncode(ds.value));
+      val.forEach((item) {
+        items.add(Item.fromJson(item));
+      });
+    }).catchError((err) {
       print(err);
     });
   }
