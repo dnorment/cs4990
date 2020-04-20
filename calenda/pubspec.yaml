@@ -1,6 +1,6 @@
 name: calenda
 description: A simple calendar&#x2F;to-do&#x2F;agenda app.
-version: 0.0.2
+version: 1.0.0
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
