@@ -9,30 +9,29 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  CalendarController _calendarController;
+  CalendarController _calendarController = CalendarController();
   Map<DateTime, List<Item>> _events = Map();
   DateTime _selectedDay = DateTime.now();
   List _selectedEvents = [];
 
-  @override
-  void initState() {
-    super.initState();
-    _calendarController = CalendarController();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  void _updateEvents() {
     List<Item> items = Calenda.of(context).items;
     items.forEach((Item item) {
       if (item.dueDate != null) {
         if (_events.containsKey(item.dueDate)) {
-          if (!_events[item.dueDate].contains(item)) _events[item.dueDate].add(item);
+          if (!_events[item.dueDate].contains(item)) {
+            _events[item.dueDate].add(item);
+          }
         } else {
           _events[item.dueDate] = [item];
         }
       }
     });
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    _updateEvents();
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

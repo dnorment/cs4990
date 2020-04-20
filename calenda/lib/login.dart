@@ -135,7 +135,9 @@ class _LoginPageState extends State<LoginPage> {
                         );
 
                         res.then((value) {
-                          Calenda.of(context).user = value.user;
+                          Calenda.of(context)
+                            ..user = value.user
+                            ..syncDownload();
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
@@ -165,7 +167,9 @@ class _LoginPageState extends State<LoginPage> {
                         );
 
                         res.then((value) {
-                          Calenda.of(context).user = value.user;
+                          Calenda.of(context)
+                            ..user = value.user
+                            ..syncDownload();
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(

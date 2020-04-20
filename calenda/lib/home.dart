@@ -3,13 +3,15 @@ import 'package:calenda/screens/calendar.dart';
 import 'package:calenda/screens/todo.dart';
 import 'package:flutter/material.dart';
 
+import 'components/calenda.dart';
+
 class CalendaHome extends StatefulWidget {
   @override
   _CalendaHomeState createState() => _CalendaHomeState();
 }
 
 class _CalendaHomeState extends State<CalendaHome> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   final List<Widget> _children = [
     CalendarScreen(),
@@ -25,6 +27,16 @@ class _CalendaHomeState extends State<CalendaHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              setState(() {
+                Calenda.of(context).syncDownload();
+              });
+            },
+          ),
+        ],
         title: Center(
           child: Text(_titles[_currentIndex]),
         ),
